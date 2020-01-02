@@ -19,6 +19,7 @@ public class Utilisateur implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private Integer idUtilisateur;
     private String nom;
     private String prenom;

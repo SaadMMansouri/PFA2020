@@ -19,6 +19,6 @@ public class Ville implements Serializable {
     private String altitude;
     private String longitude;
 
-    @OneToMany(mappedBy="ville", fetch=FetchType.EAGER)
-    private List<Trajetville> trajetvilles;
+//    @OneToMany(mappedBy="ville", fetch=FetchType.EAGER)
+  //  private List<Trajetville> trajetvilles;
 }

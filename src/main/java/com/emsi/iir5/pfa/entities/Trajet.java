@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -18,9 +19,15 @@ public class Trajet implements Serializable {
     private String nomTrajet;
     private String type;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+
     @OneToMany(mappedBy="trajet", fetch=FetchType.EAGER)
     private List<Trajetville> Trajetvilles;
 
     @OneToMany(mappedBy = "trajet")
-    Set<Voyage> voyages;
+    private List<Voyage> voyages;
+
 }

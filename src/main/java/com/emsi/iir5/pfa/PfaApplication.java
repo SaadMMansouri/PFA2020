@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import java.util.Date;
-
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class PfaApplication implements CommandLineRunner {
 
+    @Autowired
+    private UtilisateurRepository userRepository;
     @Autowired
     private VehiculeRepository vehiculeRepository;
     @Autowired
@@ -44,48 +46,23 @@ public class PfaApplication implements CommandLineRunner {
         repositoryRestConfiguration.exposeIdsFor(Trajetville.class);
         repositoryRestConfiguration.exposeIdsFor(Utilisateur.class);
         repositoryRestConfiguration.exposeIdsFor(Voyage.class);
+        repositoryRestConfiguration.exposeIdsFor(Chauffeur.class);
+        repositoryRestConfiguration.exposeIdsFor(Critere.class);
+        repositoryRestConfiguration.exposeIdsFor(Controle.class);
+        repositoryRestConfiguration.exposeIdsFor(Entretien.class);
+        repositoryRestConfiguration.exposeIdsFor(RespEntretien.class);
 
-        /*
-        vehiculeRepository.save(new Vehicule(null,"M1221","Honda","Active","Auto",5));
-        vehiculeRepository.save(new Vehicule(null,"M5841","Dacia","Non Active","Auto",6));
-        vehiculeRepository.save(new Vehicule(null,"SQ651","VAIS","Active","Car",50));
-        vehiculeRepository.save(new Vehicule(null,"F5652","XRS","Active","Auto",5));
+        Utilisateur admin = new Utilisateur();
+        admin.setNom("adminLastName");
+        admin.setPrenom("adminFirstName");
+        admin.setEmail("admin@admin.com");
+        admin.setPassword("$2a$04$KNLUwOWHVQZVpXyMBNc7JOzbLiBjb9Tk9bP7KNcPI12ICuvzXQQKG"); //password : admin
+        admin.setNumTel("0000000000");
+        admin.setAdresse("N 2020 Lot ADMIN, AdminCity, Country");
+        admin.setEtatConnexion(false);
+        admin.setCreatedAt(new Date());
+        admin.setUpdatedAt(new Date());
+        if (!userRepository.findByEmail("admin@admin.com").isPresent()) userRepository.save(admin);
 
-        villeRepository.save(new Ville(null,"KECH","87,5745","87,5745",null));
-        villeRepository.save(new Ville(null,"FES","85,9626","87,5132",null));
-        villeRepository.save(new Ville(null,"RABAT","57,5120","87,4153",null));
-        villeRepository.save(new Ville(null,"CASA","96,5328","87,9855",null));
-
-        trajetRepository.save(new Trajet(null,"trajet n1","allez-retour",null,null));
-        Trajet trj = new Trajet(null,"trajet n2","allez",null,null);
-        trajetRepository.save(trj);
-
-        Trajetville tv = new Trajetville();
-        TrajetvillePK  pk = new TrajetvillePK();
-        pk.setIdTrajet(trajetRepository.findById(1).get().getIdTrajet());
-        pk.setIdVille(villeRepository.findById(1).get().getIdVille());
-        tv.setId(pk);
-        tv.setTypeVille("escale");
-        trajetVilleRepository.save(tv);
-
-        Chauffeur ch = new Chauffeur();
-        ch.setIdUtilisateur(null);
-        ch.setNom("nom"); ch.setPrenom("prenom"); ch.setEmail("email");
-        ch.setNumTel("5132"); ch.setNumTel2("684554"); ch.setAdresse("adresse"); ch.setPassword("password");
-        ch.setEtatConnexion(false); ch.setDisponible(true);
-        ch.setUpdatedAt(new Date()); ch.setCreatedAt(new Date());
-        chauffeurRepository.save(ch);
-
-        Voyage voy = new Voyage();
-        voy.setChauffeur(ch);
-        voy.setTrajet(trajetRepository.findById(1).get());
-        voy.setDateVoyage(new Date());
-        voy.setVehicule(vehiculeRepository.findById(1).get());
-        voyageRepository.save(voy);
-
-        vehiculeRepository.findAll().forEach(vehicule -> {
-            System.out.println(vehicule.toString());
-        });
-    */
     }
 }

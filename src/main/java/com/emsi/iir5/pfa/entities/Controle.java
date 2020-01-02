@@ -18,11 +18,15 @@ public class Controle implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idCritere;
+    private Integer idControle;
     private String commentaire;
+    private String status;
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateControle;
-    private String status;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
     @ManyToOne(optional = false)
     @JoinColumn(name="id_controleur")

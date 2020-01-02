@@ -8,10 +8,13 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin("*")
 @RepositoryRestResource
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Integer> {
     @RestResource(path = "/byNom")
     public List<Utilisateur> findByNomContains(@Param("nom") String nom);
+    @RestResource(path = "/byEmail")
+    public Optional<Utilisateur> findByEmail(String email);
 }

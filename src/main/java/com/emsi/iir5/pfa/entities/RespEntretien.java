@@ -17,7 +17,7 @@ public class RespEntretien extends Utilisateur implements Serializable {
 
     private String numTel2;
     private String specialite;
-    private boolean disponible;
+    private String disponible;
 
     @OneToMany(mappedBy="respEntretien", fetch=FetchType.EAGER)
     private Set<Entretien> entretiens;

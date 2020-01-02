@@ -16,14 +16,22 @@ public class Entretien implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEntretien;
-    private String commentaire;
+    private String status;
+    private String description;
+    private String commentaireResponsable;
+    @Temporal(TemporalType.DATE)
+    private Date datePlanifierEntretien;
+    @Temporal(TemporalType.DATE)
+    private Date dateValiderEntretien;
+    // date de la creation et de la derniere modification
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateEntretien;
-
+    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+    // Relations
     @ManyToOne
     @JoinColumn(name="id_RespEntretien")
     private RespEntretien respEntretien;
-
     @ManyToOne
     @JoinColumn(name="id_vehicule")
     private Vehicule vehicule;

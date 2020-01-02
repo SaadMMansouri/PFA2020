@@ -16,7 +16,7 @@ public class Voyage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idVoyage;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateVoyage;
 
     @ManyToOne(optional = false)
@@ -30,5 +30,10 @@ public class Voyage implements Serializable {
     @ManyToOne(optional = false)
     @JoinColumn(name="id_vehicule")
     private Vehicule vehicule;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
 
 }

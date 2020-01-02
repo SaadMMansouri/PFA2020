@@ -14,10 +14,7 @@ import java.util.Set;
 public class Chauffeur extends Utilisateur implements Serializable{
     private static final long serialVersionUID = 1L;
     private String numTel2;
-    private boolean disponible;
-
-    @OneToMany(mappedBy = "chauffeur",fetch = FetchType.EAGER)
-    private Set<Voyage> voyages;
+    private String disponible;
 
     @OneToMany(mappedBy = "chauffeur",fetch = FetchType.EAGER)
     private Set<Location> locations;

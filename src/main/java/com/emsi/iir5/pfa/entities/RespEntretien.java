@@ -19,6 +19,6 @@ public class RespEntretien extends Utilisateur implements Serializable {
     private String specialite;
     private String disponible;
 
-    @OneToMany(mappedBy="respEntretien", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="respEntretien", fetch=FetchType.LAZY)
     private Set<Entretien> entretiens;
 }

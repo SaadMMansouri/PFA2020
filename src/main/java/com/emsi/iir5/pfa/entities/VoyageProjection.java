@@ -8,6 +8,7 @@ import java.util.Date;
 public interface VoyageProjection {
     Integer getIdVoyage();
     Date getDateVoyage();
+    Date getDateFinVoyage();
     Trajet getTrajet();
     Chauffeur getChauffeur();
     Vehicule getVehicule();

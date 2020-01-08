@@ -1,5 +1,6 @@
 package com.emsi.iir5.pfa.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,9 @@ public class Trajet implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
+
     @OneToMany(mappedBy="trajet", fetch=FetchType.EAGER)
     private List<Trajetville> Trajetvilles;
 
-    @OneToMany(mappedBy = "trajet")
-    private List<Voyage> voyages;
 
 }

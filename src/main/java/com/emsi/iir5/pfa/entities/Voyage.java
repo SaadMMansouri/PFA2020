@@ -19,15 +19,18 @@ public class Voyage implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateVoyage;
 
-    @ManyToOne(optional = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateFinVoyage;
+
+    @ManyToOne
     @JoinColumn(name = "id_trajet")
     private Trajet trajet;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "id_chauffeur")
     private Chauffeur chauffeur;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name="id_vehicule")
     private Vehicule vehicule;
 

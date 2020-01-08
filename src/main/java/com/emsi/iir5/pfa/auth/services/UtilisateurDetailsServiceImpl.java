@@ -25,7 +25,8 @@ public class UtilisateurDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Utilisateur user = userRepository.findByEmail(email).orElseThrow( () -> new UsernameNotFoundException("User: " + email + " not found"));
+        String user_profile = userRepository.getUserProfileUsingEmail(email);
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-                Arrays.asList(new SimpleGrantedAuthority("user")));
+                Arrays.asList(new SimpleGrantedAuthority(user_profile)));
     }
 }

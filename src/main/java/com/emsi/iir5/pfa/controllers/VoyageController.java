@@ -29,6 +29,7 @@ public class VoyageController {
     @Autowired
     private ChauffeurRepository chauffeurRepository;
 
+
     @DeleteMapping(path = "/{id}/delete")
     public ResponseEntity<?> deleteVoyage(@PathVariable(value = "id") Integer voyageId) throws ResourceNotFoundException {
         Voyage voyage = voyageRepository.findById(voyageId)
@@ -86,6 +87,18 @@ public class VoyageController {
             e.printStackTrace();
         }
 
+        voyage.setUpdatedAt(new Date());
+        final Voyage updatedTrajet = voyageRepository.save(voyage);
+        return ResponseEntity.ok(updatedTrajet);
+    }
+
+
+    @PutMapping(path = "/{idVoyage}/end")
+    public ResponseEntity<Voyage> endVoyage(@PathVariable(value = "idVoyage") Integer voyageId) throws URISyntaxException, JsonProcessingException, ParseException {
+        // get object
+        Voyage voyage = voyageRepository.findById(voyageId)
+                .orElseThrow(() -> new ResourceNotFoundException("Voyage not found for this id :: " + voyageId));
+        voyage.setDateFinVoyage(new Date());
         voyage.setUpdatedAt(new Date());
         final Voyage updatedTrajet = voyageRepository.save(voyage);
         return ResponseEntity.ok(updatedTrajet);

@@ -1,7 +1,10 @@
 package com.emsi.iir5.pfa.auth.services;
 
 import com.emsi.iir5.pfa.auth.UserCredentials;
+import com.emsi.iir5.pfa.dao.UtilisateurRepository;
+import com.emsi.iir5.pfa.entities.Utilisateur;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,6 +40,8 @@ public class LoginFilter extends AbstractAuthenticationProcessingFilter {
                 )
         );
     }
+
+
 
     @Override
     protected void successfulAuthentication(

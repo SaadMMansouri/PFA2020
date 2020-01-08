@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,4 +19,6 @@ public class Chauffeur extends Utilisateur implements Serializable{
 
     @OneToMany(mappedBy = "chauffeur",fetch = FetchType.EAGER)
     private Set<Location> locations;
+    @OneToMany(mappedBy = "chauffeur",fetch = FetchType.LAZY)
+    private List<Voyage> voyages;
 }

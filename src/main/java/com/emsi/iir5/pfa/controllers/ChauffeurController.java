@@ -5,8 +5,10 @@ import com.emsi.iir5.pfa.entities.Chauffeur;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import sun.security.util.Password;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -28,9 +30,14 @@ public class ChauffeurController extends UtilisateurController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(path = "/")
+    @PostMapping(path = "/new")
     public ResponseEntity<Chauffeur> createChauffeur(@Valid @RequestBody Chauffeur chauffeur) throws URISyntaxException {
         chauffeur.setCreatedAt(new Date());
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String pass = encoder.encode(chauffeur.getPassword());
+        chauffeur.setPassword(pass);
+
         Chauffeur result = chauffeurRepository.save(chauffeur);
         return ResponseEntity.created(new URI("/chauffeurs/"+result.getIdUtilisateur())).body(result);
     }
@@ -47,8 +54,7 @@ public class ChauffeurController extends UtilisateurController {
         chauffeur.setNumTel(chauffeurDetails.getNumTel());
         chauffeur.setNumTel2(chauffeurDetails.getNumTel2());
         chauffeur.setAdresse(chauffeurDetails.getAdresse());
-        
-        chauffeur.setPassword(getEncreptedPassword(chauffeurDetails.getPassword()));
+
 
         chauffeur.setEtatConnexion(chauffeurDetails.isEtatConnexion());
         chauffeur.setDisponible(chauffeurDetails.getDisponible());
